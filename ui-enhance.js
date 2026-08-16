@@ -23,18 +23,12 @@ function fixDriveVideos(){
             
             if(id) {
                 var driveUrl = 'https://drive.google.com/file/d/' + id + '/view';
-                
-                // Bungkus jadi link yang mengarah ke Drive
                 var wrapper = document.createElement('a');
                 wrapper.href = driveUrl;
-                wrapper.target = '_blank'; // Buka di tab baru
+                wrapper.target = '_blank';
                 wrapper.rel = 'noopener noreferrer';
                 wrapper.style.cssText = 'display:flex;align-items:center;justify-content:center;width:100%;height:200px;background:#111;border-radius:1.2rem 1.2rem 0 0;overflow:hidden;margin-bottom:1rem;text-decoration:none;position:relative;';
-                
-                // Overlay Hitam & Tombol Play
                 wrapper.innerHTML = '<div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);"><div style="width:60px;height:60px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></div><p style="color:#fff;margin-top:12px;font-size:.8rem;font-weight:500">Putar Video</p></div>';
-                
-                // Ganti elemen gambar dengan tombol play ini
                 img.parentNode.replaceChild(wrapper, img);
             }
         });
@@ -60,7 +54,8 @@ function stabilizeCover(){
     }
 }
 
-function safeMdg(){try{var w=document.querySelector('#sec-6 div[style*="flex-direction:column"]');if(!w)return;if(!document.getElementById('arsipMd')){var d=document.createElement('div');d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipMd" class="fi arsip-s" onchange="window._fMd(this.value)"><option value="">Semua Bulan</option></select>';w.parentNode.insertBefore(d,w);popMo('arsipMd',D_M);}var cards=w.querySelectorAll('.mading-card');cards.forEach(function(cd,idx){if(cd.querySelector('.md-img') && !cd.querySelector('.md-img a'))return;var m=D_M[D_M.length-1-idx];if(m&&m.gambar){var d=document.createElement('div');d.className='md-img';d.innerHTML='<img src="'+m.gambar+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';cd.prepend(d);}});var btn=w.querySelector('.ld-btn');if(btn)btn.remove();if(cards.length>3){for(var i=3;i<cards.length;i++){cards[i].style.display='none';cards[i].classList.add('md-h');}var nb=document.createElement('div');nb.className='ld-btn';nb.textContent='Tampilkan Arsip Lainnya ('+(cards.length-3)+')';nb.onclick=function(){document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});nb.remove();};w.appendChild(nb);}else{document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});}}catch(e){}}
+/* === MADING DIPERBAIKI: GAMBAR NORMAL & VIDEO DRIVE DIPISAH === */
+function safeMdg(){try{var w=document.querySelector('#sec-6 div[style*="flex-direction:column"]');if(!w)return;if(!document.getElementById('arsipMd')){var d=document.createElement('div');d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipMd" class="fi arsip-s" onchange="window._fMd(this.value)"><option value="">Semua Bulan</option></select>';w.parentNode.insertBefore(d,w);popMo('arsipMd',D_M);}var cards=w.querySelectorAll('.mading-card');cards.forEach(function(cd,idx){if(cd.querySelector('.md-img'))return;var m=D_M[D_M.length-1-idx];if(m&&m.gambar){var d=document.createElement('div');d.className='md-img';/* CEK: Kalau link Drive, jadiin tombol play. Kalau bukan, jadiin gambar biasa */if(m.gambar.indexOf('drive.google.com')!==-1){d.innerHTML='<a href="'+m.gambar+'" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:100%;height:200px;background:#111;text-decoration:none;position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);"><div style="width:60px;height:60px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></div><p style="color:#fff;margin-top:12px;font-size:.8rem;font-weight:500">Putar Video</p></div></a>';}else{d.innerHTML='<img src="'+m.gambar+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';}cd.prepend(d);}});var btn=w.querySelector('.ld-btn');if(btn)btn.remove();if(cards.length>3){for(var i=3;i<cards.length;i++){cards[i].style.display='none';cards[i].classList.add('md-h');}var nb=document.createElement('div');nb.className='ld-btn';nb.textContent='Tampilkan Arsip Lainnya ('+(cards.length-3)+')';nb.onclick=function(){document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});nb.remove();};w.appendChild(nb);}else{document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});}}catch(e){}}
 
 function safeAct(){try{var w=document.querySelector('#sec-3 .an[style*="margin-bottom:1.5rem"]');if(!w)return;if(!document.getElementById('arsipAct')){var d=document.createElement('div');d.style.marginTop='.5rem';d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipAct" class="fi arsip-s" onchange="window._fAc(this.value)"><option value="">Semua Bulan</option></select>';w.style.marginBottom='0';w.parentNode.insertBefore(d,w.nextSibling);popMo('arsipAct',D_A);}}catch(e){}}
 
