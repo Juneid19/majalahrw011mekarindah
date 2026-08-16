@@ -1,0 +1,29 @@
+
+<div id="flipbook-holder" style="display:none">
+<div class="sec-div"></div>
+<section class="sec sec-pad" id="sec-peraturan" style="background:var(--bg, #0a0a0a)">
+<div style="max-width:60rem;margin:0 auto">
+<p class="pi an" style="margin-bottom:.5rem">Dokumen Resmi</p>
+<div class="oh an" style="margin-bottom:2rem"></div>
+<h2 class="font-space an" style="font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:1.5rem;color:#fff">Peraturan RW-011 Desa Mekarmukti</h2>
+<div class="an map-wrap" style="height:80vh;min-height:500px">
+<iframe src="/flipbook-offline.html" style="width:100%;height:100%;border:0;background:#fff;border-radius:1.1rem"></iframe>
+</div>
+<p class="an" style="text-align:center;margin-top:1rem;font-size:.7rem;color:#666">Geser atau klik halaman untuk membalik</p>
+</div>
+</section>
+</div>
+
+<script>
+function pindahFlipbook(){
+var h=document.getElementById('flipbook-holder');
+var m=document.getElementById('sec-6');
+if(h&&m&&h.style.display==='none'){
+h.style.display='block';
+m.parentNode.insertBefore(h,m.nextSibling);
+}
+}
+setTimeout(pindahFlipbook,1000);
+setTimeout(pindahFlipbook,2500);
+setTimeout(pindahFlipbook,5000);
+</script>
