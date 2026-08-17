@@ -1,14 +1,14 @@
 (function(){
 try {
 var style=document.createElement('style');
-style.textContent='.arsip-s{max-width:180px}.ld-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:.6rem 1.2rem;border-radius:.75rem;cursor:pointer;font-size:.75rem;text-align:center;transition:all .3s;margin-top:1rem}.ld-btn:hover{background:rgba(255,255,255,.1);color:#fff}.md-img{width:100%;height:200px;background:#111;border-radius:1.2rem 1.2rem 0 0;overflow:hidden;margin-bottom:1rem}.md-img img{width:100%;height:100%;object-fit:cover}header,button,div{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}#galeriTrack{will-change:transform}.slide-item{contain:layout style paint}img:not([src*="data:"]){background:var(--bg,#111)}#sec-3 [style*="line-height"]{white-space:pre-line!important;max-height:none!important;overflow:visible!important;-webkit-line-clamp:unset!important}#sec-0{background:#000!important}#sec-0 *{color:#fff!important}body.light #sec-0,body.light #sec-0 *{color:#fff!important;background:#000!important}@keyframes cldFadeIn{0%{opacity:0}100%{opacity:1}}.cld-iframe{animation:cldFadeIn 1.5s ease-out forwards}';
+style.textContent='.arsip-s{max-width:180px}.ld-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:.6rem 1.2rem;border-radius:.75rem;cursor:pointer;font-size:.75rem;text-align:center;transition:all .3s;margin-top:1rem}.ld-btn:hover{background:rgba(255,255,255,.1);color:#fff}.md-img{width:100%;height:200px;background:#111;border-radius:1.2rem 1.2rem 0 0;overflow:hidden;margin-bottom:1rem}.md-img img{width:100%;height:100%;object-fit:cover}header,button,div{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}#galeriTrack{will-change:transform}.slide-item{contain:layout style paint}img:not([src*="data:"]){background:var(--bg,#111)}#sec-3 [style*="line-height"]{white-space:pre-line!important;max-height:none!important;overflow:visible!important;-webkit-line-clamp:unset!important}#sec-0{background:#000!important}#sec-0 *{color:#fff!important}body.light #sec-0,body.light #sec-0 *{color:#fff!important;background:#000!important}';
 document.head.appendChild(style);
 
-function popMo(id,arr){try{var s=document.getElementById(id);if(!s)return;var m={};arr.forEach(function(x){if(x.date||x.tgl){var p=(x.date||x.tgl).split('-');m[p[0]+'-'+p[1]]=1;}});var ms=Object.keys(m).sort().reverse();var b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];ms.forEach(function(k){var p=k.split('-');var o=document.createElement('option');o.value=k;o.textContent=b[parseInt(p[1])-1]+' '+p[0];s.appendChild(o);});}catch(e){}}
+function popMo(id,arr){try{var s=document.getElementById(id);if(!s)return;var m={};arr.forEach(function(x){if(x.date||x.tgl){var(p=x.date||x.tgl).split('-');m[p[0]+'-'+p[1]]=1;}});var ms=Object.keys(m).sort().reverse();var b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];ms.forEach(function(k){var p=k.split('-');var o=document.createElement('option');o.value=k;o.textContent=b[parseInt(p[1])-1]+' '+p[0];s.appendChild(o);});}catch(e){}}
 
 function turboLazyImages(){try{document.querySelectorAll('img:not([loading]):not([src*="data:"])').forEach(function(img){var rect=img.getBoundingClientRect();if(rect.top>window.innerHeight||rect.bottom<0){img.loading='lazy';}});}catch(e){}}
 
-/* === JOKER CARD 1: GOOGLE DRIVE === */
+/* === JOKER CARD: GOOGLE DRIVE (TANPA CLOUDINARY) === */
 function fixDriveVideos(){
     try {
         document.querySelectorAll('img[src*="drive.google.com"]').forEach(function(img){
@@ -35,34 +35,6 @@ function fixDriveVideos(){
     } catch(e){}
 }
 
-/* === JOKER CARD 2: CLOUDINARY + KOMPRES OTOMATIS 720p === */
-function fixCloudinaryEmbeds(){
-    try {
-        document.querySelectorAll('img[src*="player.cloudinary.com"]').forEach(function(img){
-            var url = img.src;
-            
-            // Baca URL yang dipaste user
-            var urlObj = new URL(url);
-            var cloudName = urlObj.searchParams.get('cloud_name') || '';
-            var publicId = urlObj.searchParams.get('public_id') || '';
-            
-            if(publicId) {
-                // Sihir kompres: w_720 (720p) & q_50 (kualitas 50%)
-                // Kalau masih berat, ganti w_720 jadi w_480
-                var newUrl = 'https://player.cloudinary.com/embed/?cloud_name=' + cloudName + '&public_id=' + publicId + '&transformation[]=q_50:w_720';
-                
-                var iframe = document.createElement('iframe');
-                iframe.src = newUrl;
-                iframe.className = 'cld-iframe';
-                iframe.style.cssText = 'width:100%;aspect-ratio:16/9;border:none;border-radius:1rem;background:#000;box-shadow:0 0 20px rgba(0,0,0,.3);';
-                iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
-                iframe.allowFullscreen = true;
-                img.parentNode.replaceChild(iframe, img);
-            }
-        });
-    } catch(e){}
-}
-
 var coverCctv=null;
 function stabilizeCover(){
     var cover=document.getElementById('sec-0');
@@ -82,12 +54,12 @@ function stabilizeCover(){
     }
 }
 
-/* === MADING (GAMBAR NORMAL, DRIVE, CLOUDINARY) === */
-function safeMdg(){try{var w=document.querySelector('#sec-6 div[style*="flex-direction:column"]');if(!w)return;if(!document.getElementById('arsipMd')){var d=document.createElement('div');d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipMd" class="fi arsip-s" onchange="window._fMd(this.value)"><option value="">Semua Bulan</option></select>';w.parentNode.insertBefore(d,w);popMo('arsipMd',D_M);}var cards=w.querySelectorAll('.mading-card');cards.forEach(function(cd,idx){if(cd.querySelector('.md-img'))return;var m=D_M[D_M.length-1-idx];if(m&&m.gambar){var d=document.createElement('div');d.className='md-img';if(m.gambar.indexOf('drive.google.com')!==-1){d.innerHTML='<a href="'+m.gambar+'" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:100%;height:200px;background:#111;text-decoration:none;position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);"><div style="width:60px;height:60px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></div><p style="color:#fff;margin-top:12px;font-size:.8rem;font-weight:500">Putar Video</p></div></a>';}else if(m.gambar.indexOf('player.cloudinary.com')!==-1){d.innerHTML='<iframe src="'+m.gambar+'" class="cld-iframe" style="width:100%;height:200px;border:none;border-radius:1.2rem 1.2rem 0 0;background:#000;" allow="autoplay; fullscreen" allowfullscreen></iframe>';}else{d.innerHTML='<img src="'+m.gambar+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';}cd.prepend(d);}});var btn=w.querySelector('.ld-btn');if(btn)btn.remove();if(cards.length>3){for(var i=3;i<cards.length;i++){cards[i].style.display='none';cards[i].classList.add('md-h');}var nb=document.createElement('div');nb.className='ld-btn';nb.textContent='Tampilkan Arsip Lainnya ('+(cards.length-3)+')';nb.onclick=function(){document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});nb.remove();};w.appendChild(nb);}else{document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});}}catch(e){}}
+/* === MADING (GAMBAR NORMAL & GOOGLE DRIVE) === */
+function safeMdg(){try{var w=document.querySelector('#sec-6 div[style*="flex-direction:column"]');if(!w)return;if(!document.getElementById('arsipMd')){var d=document.createElement('div');d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipMd" class="fi arsip-s" onchange="window._fMd(this.value)"><option value="">Semua Bulan</option></select>';w.parentNode.insertBefore(d,w);popMo('arsipMd',D_M);}var cards=w.querySelectorAll('.mading-card');cards.forEach(function(cd,idx){if(cd.querySelector('.md-img'))return;var m=D_M[D_M.length-1-idx];if(m&&m.gambar){var d=document.createElement('div');d.className='md-img';if(m.gambar.indexOf('drive.google.com')!==-1){d.innerHTML='<a href="'+m.gambar+'" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:100%;height:200px;background:#111;text-decoration:none;position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);"><div style="width:60px;height:60px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></div><p style="color:#fff;margin-top:12px;font-size:.8rem;font-weight:500">Putar Video</p></div></a>';}else{d.innerHTML='<img src="'+m.gambar+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';}cd.prepend(d);}});var btn=w.querySelector('.ld-btn');if(btn)btn.remove();if(cards.length>3){for(var i=3;i<cards.length;i++){cards[i].style.display='none';cards[i].classList.add('md-h');}var nb=document.createElement('div');nb.className='ld-btn';nb.textContent='Tampilkan Arsip Lainnya ('+(cards.length-3)+')';nb.onclick=function(){document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});nb.remove();};w.appendChild(nb);}else{document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});}}catch(e){}}
 
 function safeAct(){try{var w=document.querySelector('#sec-3 .an[style*="margin-bottom:1.5rem"]');if(!w)return;if(!document.getElementById('arsipAct')){var d=document.createElement('div');d.style.marginTop='.5rem';d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipAct" class="fi arsip-s" onchange="window._fAc(this.value)"><option value="">Semua Bulan</option></select>';w.style.marginBottom='0';w.parentNode.insertBefore(d,w.nextSibling);popMo('arsipAct',D_A);}}catch(e){}}
 
-function safeAdm(){try{var o=document.getElementById('md_oleh');if(!o||document.getElementById('md_gambar'))return;var d=document.createElement('div');d.innerHTML='<label class="lb">URL Gambar / Video</label><input id="md_gambar" class="fi" placeholder="https://drive.google.com/... ATAU https://player.cloudinary.com/...">';o.parentNode.parentNode.insertBefore(d,o.parentNode);var b=document.querySelector('#as-mading .bs');if(b&&!b.dataset.ok){b.dataset.ok='1';b.removeAttribute('onclick');b.addEventListener('click',function(e){e.stopImmediatePropagation();pSv();},true);}}catch(e){}}
+function safeAdm(){try{var o=document.getElementById('md_oleh');if(!o||document.getElementById('md_gambar'))return;var d=document.createElement('div');d.innerHTML='<label class="lb">URL Gambar / Video</label><input id="md_gambar" class="fi" placeholder="https://drive.google.com/file/d/...">';o.parentNode.parentNode.insertBefore(d,o.parentNode);var b=document.querySelector('#as-mading .bs');if(b&&!b.dataset.ok){b.dataset.ok='1';b.removeAttribute('onclick');b.addEventListener('click',function(e){e.stopImmediatePropagation();pSv();},true);}}catch(e){}}
 
 window._fMd=function(v){try{var cards=document.querySelectorAll('#sec-6 .mading-card');cards.forEach(function(x){x.style.display='block';x.classList.remove('md-h');});var btn=document.querySelector('#sec-6 .ld-btn');if(btn)btn.remove();if(!v){safeMdg();return;}cards.forEach(function(cd,idx){var m=D_M[D_M.length-1-idx];if(m&&m.tgl){var p=m.tgl.split('-');if((p[0]+'-'+p[1])!==v)cd.style.display='none';}});}catch(e){}};
 
@@ -137,7 +109,7 @@ function initGaleriCaption(){
 
 function watchMagV(target){
     new MutationObserver(function(){
-        stabilizeCover();forcePeraturan();initGaleriCaption();safeMdg();safeAct();turboLazyImages();fixDriveVideos();fixCloudinaryEmbeds();
+        stabilizeCover();forcePeraturan();initGaleriCaption();safeMdg();safeAct();turboLazyImages();fixDriveVideos();
     }).observe(target,{childList:true,subtree:false});
 }
 
