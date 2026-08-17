@@ -1,7 +1,6 @@
 (function(){
 try {
 var style=document.createElement('style');
-/* === TAMBAHAN ANIMASI FADE IN UNTUK CLOUDINARY === */
 style.textContent='.arsip-s{max-width:180px}.ld-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:.6rem 1.2rem;border-radius:.75rem;cursor:pointer;font-size:.75rem;text-align:center;transition:all .3s;margin-top:1rem}.ld-btn:hover{background:rgba(255,255,255,.1);color:#fff}.md-img{width:100%;height:200px;background:#111;border-radius:1.2rem 1.2rem 0 0;overflow:hidden;margin-bottom:1rem}.md-img img{width:100%;height:100%;object-fit:cover}header,button,div{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}#galeriTrack{will-change:transform}.slide-item{contain:layout style paint}img:not([src*="data:"]){background:var(--bg,#111)}#sec-3 [style*="line-height"]{white-space:pre-line!important;max-height:none!important;overflow:visible!important;-webkit-line-clamp:unset!important}#sec-0{background:#000!important}#sec-0 *{color:#fff!important}body.light #sec-0,body.light #sec-0 *{color:#fff!important;background:#000!important}@keyframes cldFadeIn{0%{opacity:0}100%{opacity:1}}.cld-iframe{animation:cldFadeIn 1.5s ease-out forwards}';
 document.head.appendChild(style);
 
@@ -36,18 +35,30 @@ function fixDriveVideos(){
     } catch(e){}
 }
 
-/* === JOKER CARD 2: CLOUDINARY VIDEO + FADE IN === */
+/* === JOKER CARD 2: CLOUDINARY + KOMPRES OTOMATIS 720p === */
 function fixCloudinaryEmbeds(){
     try {
         document.querySelectorAll('img[src*="player.cloudinary.com"]').forEach(function(img){
             var url = img.src;
-            var iframe = document.createElement('iframe');
-            iframe.src = url;
-            iframe.className = 'cld-iframe'; // Tambah class untuk trigger animasi
-            iframe.style.cssText = 'width:100%;aspect-ratio:16/9;border:none;border-radius:1rem;background:#000;box-shadow:0 0 20px rgba(0,0,0,.3);';
-            iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
-            iframe.allowFullscreen = true;
-            img.parentNode.replaceChild(iframe, img);
+            
+            // Baca URL yang dipaste user
+            var urlObj = new URL(url);
+            var cloudName = urlObj.searchParams.get('cloud_name') || '';
+            var publicId = urlObj.searchParams.get('public_id') || '';
+            
+            if(publicId) {
+                // Sihir kompres: w_720 (720p) & q_50 (kualitas 50%)
+                // Kalau masih berat, ganti w_720 jadi w_480
+                var newUrl = 'https://player.cloudinary.com/embed/?cloud_name=' + cloudName + '&public_id=' + publicId + '&transformation[]=q_50:w_720';
+                
+                var iframe = document.createElement('iframe');
+                iframe.src = newUrl;
+                iframe.className = 'cld-iframe';
+                iframe.style.cssText = 'width:100%;aspect-ratio:16/9;border:none;border-radius:1rem;background:#000;box-shadow:0 0 20px rgba(0,0,0,.3);';
+                iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+                iframe.allowFullscreen = true;
+                img.parentNode.replaceChild(iframe, img);
+            }
         });
     } catch(e){}
 }
