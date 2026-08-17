@@ -8,7 +8,7 @@ function popMo(id,arr){try{var s=document.getElementById(id);if(!s)return;var m=
 
 function turboLazyImages(){try{document.querySelectorAll('img:not([loading]):not([src*="data:"])').forEach(function(img){var rect=img.getBoundingClientRect();if(rect.top>window.innerHeight||rect.bottom<0){img.loading='lazy';}});}catch(e){}}
 
-/* === JOKER CARD: LINK GOOGLE DRIVE (KAYAK IG) === */
+/* === JOKER CARD 1: GOOGLE DRIVE === */
 function fixDriveVideos(){
     try {
         document.querySelectorAll('img[src*="drive.google.com"]').forEach(function(img){
@@ -35,6 +35,21 @@ function fixDriveVideos(){
     } catch(e){}
 }
 
+/* === JOKER CARD 2: CLOUDINARY VIDEO === */
+function fixCloudinaryEmbeds(){
+    try {
+        document.querySelectorAll('img[src*="player.cloudinary.com"]').forEach(function(img){
+            var url = img.src;
+            var iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.style.cssText = 'width:100%;aspect-ratio:16/9;border:none;border-radius:1rem;background:#000;box-shadow:0 0 20px rgba(0,0,0,.3);';
+            iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+            iframe.allowFullscreen = true;
+            img.parentNode.replaceChild(iframe, img);
+        });
+    } catch(e){}
+}
+
 var coverCctv=null;
 function stabilizeCover(){
     var cover=document.getElementById('sec-0');
@@ -54,12 +69,12 @@ function stabilizeCover(){
     }
 }
 
-/* === MADING DIPERBAIKI: GAMBAR NORMAL & VIDEO DRIVE DIPISAH === */
-function safeMdg(){try{var w=document.querySelector('#sec-6 div[style*="flex-direction:column"]');if(!w)return;if(!document.getElementById('arsipMd')){var d=document.createElement('div');d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipMd" class="fi arsip-s" onchange="window._fMd(this.value)"><option value="">Semua Bulan</option></select>';w.parentNode.insertBefore(d,w);popMo('arsipMd',D_M);}var cards=w.querySelectorAll('.mading-card');cards.forEach(function(cd,idx){if(cd.querySelector('.md-img'))return;var m=D_M[D_M.length-1-idx];if(m&&m.gambar){var d=document.createElement('div');d.className='md-img';/* CEK: Kalau link Drive, jadiin tombol play. Kalau bukan, jadiin gambar biasa */if(m.gambar.indexOf('drive.google.com')!==-1){d.innerHTML='<a href="'+m.gambar+'" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:100%;height:200px;background:#111;text-decoration:none;position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);"><div style="width:60px;height:60px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></div><p style="color:#fff;margin-top:12px;font-size:.8rem;font-weight:500">Putar Video</p></div></a>';}else{d.innerHTML='<img src="'+m.gambar+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';}cd.prepend(d);}});var btn=w.querySelector('.ld-btn');if(btn)btn.remove();if(cards.length>3){for(var i=3;i<cards.length;i++){cards[i].style.display='none';cards[i].classList.add('md-h');}var nb=document.createElement('div');nb.className='ld-btn';nb.textContent='Tampilkan Arsip Lainnya ('+(cards.length-3)+')';nb.onclick=function(){document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});nb.remove();};w.appendChild(nb);}else{document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});}}catch(e){}}
+/* === MADING (GAMBAR NORMAL, DRIVE, CLOUDINARY) === */
+function safeMdg(){try{var w=document.querySelector('#sec-6 div[style*="flex-direction:column"]');if(!w)return;if(!document.getElementById('arsipMd')){var d=document.createElement('div');d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipMd" class="fi arsip-s" onchange="window._fMd(this.value)"><option value="">Semua Bulan</option></select>';w.parentNode.insertBefore(d,w);popMo('arsipMd',D_M);}var cards=w.querySelectorAll('.mading-card');cards.forEach(function(cd,idx){if(cd.querySelector('.md-img'))return;var m=D_M[D_M.length-1-idx];if(m&&m.gambar){var d=document.createElement('div');d.className='md-img';if(m.gambar.indexOf('drive.google.com')!==-1){d.innerHTML='<a href="'+m.gambar+'" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:100%;height:200px;background:#111;text-decoration:none;position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);"><div style="width:60px;height:60px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></div><p style="color:#fff;margin-top:12px;font-size:.8rem;font-weight:500">Putar Video</p></div></a>';}else if(m.gambar.indexOf('player.cloudinary.com')!==-1){d.innerHTML='<iframe src="'+m.gambar+'" style="width:100%;height:200px;border:none;border-radius:1.2rem 1.2rem 0 0;background:#000;" allow="autoplay; fullscreen" allowfullscreen></iframe>';}else{d.innerHTML='<img src="'+m.gambar+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';}cd.prepend(d);}});var btn=w.querySelector('.ld-btn');if(btn)btn.remove();if(cards.length>3){for(var i=3;i<cards.length;i++){cards[i].style.display='none';cards[i].classList.add('md-h');}var nb=document.createElement('div');nb.className='ld-btn';nb.textContent='Tampilkan Arsip Lainnya ('+(cards.length-3)+')';nb.onclick=function(){document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});nb.remove();};w.appendChild(nb);}else{document.querySelectorAll('.md-h').forEach(function(x){x.style.display='block';});}}catch(e){}}
 
 function safeAct(){try{var w=document.querySelector('#sec-3 .an[style*="margin-bottom:1.5rem"]');if(!w)return;if(!document.getElementById('arsipAct')){var d=document.createElement('div');d.style.marginTop='.5rem';d.style.marginBottom='1.5rem';d.innerHTML='<select id="arsipAct" class="fi arsip-s" onchange="window._fAc(this.value)"><option value="">Semua Bulan</option></select>';w.style.marginBottom='0';w.parentNode.insertBefore(d,w.nextSibling);popMo('arsipAct',D_A);}}catch(e){}}
 
-function safeAdm(){try{var o=document.getElementById('md_oleh');if(!o||document.getElementById('md_gambar'))return;var d=document.createElement('div');d.innerHTML='<label class="lb">URL Gambar</label><input id="md_gambar" class="fi" placeholder="https://...">';o.parentNode.parentNode.insertBefore(d,o.parentNode);var b=document.querySelector('#as-mading .bs');if(b&&!b.dataset.ok){b.dataset.ok='1';b.removeAttribute('onclick');b.addEventListener('click',function(e){e.stopImmediatePropagation();pSv();},true);}}catch(e){}}
+function safeAdm(){try{var o=document.getElementById('md_oleh');if(!o||document.getElementById('md_gambar'))return;var d=document.createElement('div');d.innerHTML='<label class="lb">URL Gambar / Video</label><input id="md_gambar" class="fi" placeholder="https://drive.google.com/... ATAU https://player.cloudinary.com/...">';o.parentNode.parentNode.insertBefore(d,o.parentNode);var b=document.querySelector('#as-mading .bs');if(b&&!b.dataset.ok){b.dataset.ok='1';b.removeAttribute('onclick');b.addEventListener('click',function(e){e.stopImmediatePropagation();pSv();},true);}}catch(e){}}
 
 window._fMd=function(v){try{var cards=document.querySelectorAll('#sec-6 .mading-card');cards.forEach(function(x){x.style.display='block';x.classList.remove('md-h');});var btn=document.querySelector('#sec-6 .ld-btn');if(btn)btn.remove();if(!v){safeMdg();return;}cards.forEach(function(cd,idx){var m=D_M[D_M.length-1-idx];if(m&&m.tgl){var p=m.tgl.split('-');if((p[0]+'-'+p[1])!==v)cd.style.display='none';}});}catch(e){}};
 
@@ -109,7 +124,7 @@ function initGaleriCaption(){
 
 function watchMagV(target){
     new MutationObserver(function(){
-        stabilizeCover();forcePeraturan();initGaleriCaption();safeMdg();safeAct();turboLazyImages();fixDriveVideos();
+        stabilizeCover();forcePeraturan();initGaleriCaption();safeMdg();safeAct();turboLazyImages();fixDriveVideos();fixCloudinaryEmbeds();
     }).observe(target,{childList:true,subtree:false});
 }
 
