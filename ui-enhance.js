@@ -1,14 +1,15 @@
 (function(){
 try {
 var style=document.createElement('style');
-style.textContent='.arsip-s{max-width:180px}.ld-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:.6rem 1.2rem;border-radius:.75rem;cursor:pointer;font-size:.75rem;text-align:center;transition:all .3s;margin-top:1rem}.ld-btn:hover{background:rgba(255,255,255,.1);color:#fff}.md-img{width:100%;height:200px;background:#111;border-radius:1.2rem 1.2rem 0 0;overflow:hidden;margin-bottom:1rem}.md-img img{width:100%;height:100%;object-fit:cover}header,button,div{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}#galeriTrack{will-change:transform}.slide-item{contain:layout style paint}img:not([src*="data:"]){background:var(--bg,#111)}#sec-3 [style*="line-height"]{white-space:pre-line!important;max-height:none!important;overflow:visible!important;-webkit-line-clamp:unset!important}#sec-0{background:#000!important}#sec-0 *{color:#fff!important}body.light #sec-0,body.light #sec-0 *{color:#fff!important;background:#000!important}';
+/* === TAMBAHAN BARU: SEMBUNYIKAN LAPORAN KEUANGAN === */
+style.textContent='.arsip-s{max-width:180px}.ld-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:.6rem 1.2rem;border-radius:.75rem;cursor:pointer;font-size:.75rem;text-align:center;transition:all .3s;margin-top:1rem}.ld-btn:hover{background:rgba(255,255,255,.1);color:#fff}.md-img{width:100%;height:200px;background:#111;border-radius:1.2rem 1.2rem 0 0;overflow:hidden;margin-bottom:1rem}.md-img img{width:100%;height:100%;object-fit:cover}header,button,div{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}#galeriTrack{will-change:transform}.slide-item{contain:layout style paint}img:not([src*="data:"]){background:var(--bg,#111)}#sec-3 [style*="line-height"]{white-space:pre-line!important;max-height:none!important;overflow:visible!important;-webkit-line-clamp:unset!important}#sec-0{background:#000!important}#sec-0 *{color:#fff!important}body.light #sec-0,body.light #sec-0 *{color:#fff!important;background:#000!important}#sec-4{display:none!important}';
 document.head.appendChild(style);
 
-function popMo(id,arr){try{var s=document.getElementById(id);if(!s)return;var m={};arr.forEach(function(x){if(x.date||x.tgl){var(p=x.date||x.tgl).split('-');m[p[0]+'-'+p[1]]=1;}});var ms=Object.keys(m).sort().reverse();var b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];ms.forEach(function(k){var p=k.split('-');var o=document.createElement('option');o.value=k;o.textContent=b[parseInt(p[1])-1]+' '+p[0];s.appendChild(o);});}catch(e){}}
+function popMo(id,arr){try{var s=document.getElementById(id);if(!s)return;var m={};arr.forEach(function(x){if(x.date||x.tgl){var p=(x.date||x.tgl).split('-');m[p[0]+'-'+p[1]]=1;}});var ms=Object.keys(m).sort().reverse();var b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];ms.forEach(function(k){var p=k.split('-');var o=document.createElement('option');o.value=k;o.textContent=b[parseInt(p[1])-1]+' '+p[0];s.appendChild(o);});}catch(e){}}
 
 function turboLazyImages(){try{document.querySelectorAll('img:not([loading]):not([src*="data:"])').forEach(function(img){var rect=img.getBoundingClientRect();if(rect.top>window.innerHeight||rect.bottom<0){img.loading='lazy';}});}catch(e){}}
 
-/* === JOKER CARD: GOOGLE DRIVE (TANPA CLOUDINARY) === */
+/* === JOKER CARD: GOOGLE DRIVE === */
 function fixDriveVideos(){
     try {
         document.querySelectorAll('img[src*="drive.google.com"]').forEach(function(img){
