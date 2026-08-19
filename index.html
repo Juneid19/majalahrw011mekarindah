@@ -373,3 +373,50 @@ html:not([data-theme="light"]) .aduan-card{background:#0c0c0c!important}
 .md-img{height:auto!important;overflow:visible!important;min-height:0!important;} #sec-3 .mg-grid>div{min-height:500px!important;height:auto!important;overflow:visible!important;} #sec-3 img,#sec-3 video{width:100%!important;height:auto!important;max-height:50vh!important;object-fit:contain!important;} #sec-3 h3,#sec-3 p,#sec-3 span,#sec-3 a{display:block!important;opacity:1!important;color:white!important;position:relative!important;z-index:10!important;}
 .md-img{height:auto!important;overflow:hidden!important;} #sec-3 .mg-grid>div{display:flex!important;flex-direction:column!important;height:auto!important;overflow:hidden!important;} #sec-3 .mg-grid>div>div:first-child{flex-shrink:0!important;height:auto!important;overflow:hidden!important;} #sec-3 img,#sec-3 video{width:100%!important;height:auto!important;max-height:50vh!important;object-fit:contain!important;} #sec-3 h3,#sec-3 p,#sec-3 span,#sec-3 a{position:static!important;z-index:auto!important;opacity:1!important;padding:0 1rem!important;margin-top:0.5rem!important;}
 </style>
+
+<!-- Murottal Player Button - HIDE: uncomment css display:none di bawah -->
+<div id="murottal-player-btn" class="murottal-link-section" style="display:none">
+  <a href="https://juneid19.github.io/murottalradio/" target="_blank"
+     class="murottal-player-btn">
+    🕌 Murottal Player
+  </a>
+</div>
+
+<script>
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var btn = document.getElementById('murottal-player-btn');
+    if(btn) btn.style.display = 'block';
+  }, 1500);
+});
+</script>
+
+<style>
+.murottal-link-section {
+  text-align: center;
+  padding: 20px 10px 100px;
+  margin-top: 20px;
+}
+
+.murottal-player-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #1e3a5f, #2d5a87);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(30, 58, 95, 0.4);
+  transition: all 0.3s ease;
+}
+
+.murottal-player-btn:hover {
+  background: linear-gradient(135deg, #2d5a87, #3a7abd);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 58, 95, 0.5);
+}
+
+/* ===== CARA HIDE PERMANEN (uncomment baris di bawah) ===== */
+/* .murottal-link-section { display: none !important; } */
+</style>
