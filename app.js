@@ -91,7 +91,7 @@ h+='<div class="asec" id="as-sambutan" style="display:none"><div class="sc"><h2 
 h+='<div class="asec" id="as-struktur" style="display:none"><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1.1rem">Pengurus Inti</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem"><div><label class="lb">Sekretariat</label><input id="st_wakil" class="fi"><label class="lb" style="margin-top:.5rem">Foto</label><input id="st_fw" class="fi"></div><div><label class="lb">Sekretaris</label><input id="st_sek" class="fi"><label class="lb" style="margin-top:.5rem">Foto</label><input id="st_fse" class="fi"></div><div><label class="lb">Bendahara</label><input id="st_ben" class="fi"><label class="lb" style="margin-top:.5rem">Foto</label><input id="st_fbe" class="fi"></div></div></div><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1rem">Koordinator Seksi</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">';for(i=0;i<12;i++)h+='<div><label class="lb">'+sL[i]+'</label><input id="st_s'+(i+1)+'" class="fi"><label class="lb" style="margin-top:.4rem">Foto</label><input id="st_fs'+(i+1)+'" class="fi"></div>';h+='</div></div><div class="sc"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1rem">Ketua RT</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem">';for(i=0;i<6;i++)h+='<div><label class="lb">RT 00'+(i+1)+'</label><input id="st_r'+(i+1)+'" class="fi"><label class="lb" style="margin-top:.4rem">Foto</label><input id="st_fr'+(i+1)+'" class="fi"></div>';h+='</div></div><div style="margin-top:1.3rem"><button class="bs" onclick="svStr()">Simpan</button></div></div>';
 h+='<div class="asec" id="as-kegiatan" style="display:none"><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1.1rem">Tambah Kegiatan</h2><input type="hidden" id="ae_id" value=""><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem"><div style="grid-column:span 2"><label class="lb">Judul *</label><input id="ae_title" class="fi"></div><div style="grid-column:span 2"><label class="lb">Deskripsi *</label><textarea id="ae_desc" class="fi"></textarea></div><div><label class="lb">Kategori *</label><select id="ae_cat" class="fi"><option value="">Pilih...</option>';for(i=0;i<sK.length;i++)h+='<option value="'+sK[i]+'">'+sL[i]+'</option>';h+='</select></div><div><label class="lb">Tanggal *</label><input type="date" id="ae_date" class="fi"></div><div><label class="lb">Ukuran</label><select id="ae_size" class="fi"><option value="normal">Normal</option><option value="large">Besar</option></select></div><div><label class="lb">Tipe Media</label><select id="ae_mediaType" class="fi" onchange="toggleMediaField()"><option value="foto">Foto / Gambar</option><option value="youtube">YouTube</option><option value="tiktok">TikTok</option><option value="instagram">Instagram Reels</option></select></div><div id="ae_mediaWrap" style="grid-column:span 2"><label class="lb" id="ae_mediaLbl">URL Gambar</label><input id="ae_media" class="fi" placeholder="https://..."></div></div><div style="margin-top:1rem;display:flex;gap:.6rem"><button class="bs" onclick="svAct()">Simpan</button><button class="bd" onclick="rsAF()" style="padding:.6rem 1.3rem">Reset</button></div></div><div class="sc"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600">Daftar</h2><span style="font-size:.65rem;color:#777;font-family:Geist Mono,monospace" id="actCnt">0</span></div><div id="actList"><p style="text-align:center;color:#666;padding:1.5rem 0">Kosong</p></div></div></div>';
 h+='<div class="asec" id="as-keuangan" style="display:none"><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1rem">Saldo Awal</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem"><div><label class="lb">Rp</label><input type="number" id="fe_sawal" class="fi"></div><div style="display:flex;align-items:flex-end"><button class="bs" onclick="svSal()">Simpan</button></div></div></div><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1rem">Pemasukan</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem"><div><label class="lb">Keterangan *</label><input id="fe_mk" class="fi"></div><div><label class="lb">Jumlah *</label><input type="number" id="fe_jm" class="fi"></div><div><label class="lb">Tanggal *</label><input type="date" id="fe_tgl" class="fi"></div><div><label class="lb">Kategori</label><select id="fe_kat_m" class="fi"><option>Iuran Warga</option><option>Bantuan Pemerintah</option><option>Sumbangan</option><option>Lain-lain</option></select></div><div><label class="lb">Catatan</label><input id="fe_ctt" class="fi"></div></div><div style="margin-top:1rem"><button class="bs" onclick="svMas()">+ Pemasukan</button></div></div><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1rem">Pengeluaran</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem"><div><label class="lb">Keterangan *</label><input id="fe_kk" class="fi"></div><div><label class="lb">Jumlah *</label><input type="number" id="fe_jk" class="fi"></div><div><label class="lb">Tanggal *</label><input type="date" id="fe_tk" class="fi"></div><div><label class="lb">Kategori</label><select id="fe_kat_k" class="fi"><option>Operasional</option><option>Keamanan</option><option>Kegiatan</option><option>Rapat</option><option>Lingkungan</option><option>Kesehatan</option><option>Publikasi</option><option>Lain-lain</option></select></div><div><label class="lb">Catatan</label><input id="fe_ctk" class="fi"></div></div><div style="margin-top:1rem"><button class="bd" onclick="svKel()" style="padding:.6rem 1.3rem">+ Pengeluaran</button></div></div><div class="sc"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600">Transaksi</h2><span style="font-size:.65rem;color:#777;font-family:Geist Mono,monospace" id="finCnt">0</span></div><div id="finList"><p style="text-align:center;color:#666;padding:1.5rem 0">Kosong</p></div></div></div>';
-h+='<div class="asec" id="as-mading" style="display:none"><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1.1rem">Tambah Pengumuman</h2><input type="hidden" id="md_id" value=""><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem"><div style="grid-column:span 2"><label class="lb">Judul *</label><input id="md_judul" class="fi"></div><div style="grid-column:span 2"><label class="lb">Isi *</label><textarea id="md_isi" class="fi" style="min-height:120px"></textarea></div><div><label class="lb">Oleh</label><input id="md_oleh" class="fi" value="Admin RW 011"></div><div><label class="lb">Tanggal</label><input type="date" id="md_tgl" class="fi"></div><div style="display:flex;align-items:flex-end"><button class="bs" onclick="svMading()">Simpan</button></div></div></div><div class="sc"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600">Pengumuman</h2><span style="font-size:.65rem;color:#777;font-family:Geist Mono,monospace" id="mdCnt">0</span></div><div id="mdList"><p style="text-align:center;color:#666;padding:1.5rem 0">Kosong</p></div></div></div>';
+h+='<div class="asec" id="as-mading" style="display:none"><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1.1rem">Tambah Pengumuman</h2><input type="hidden" id="md_id" value=""><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem"><div style="grid-column:span 2"><label class="lb">Judul *</label><input id="md_judul" class="fi"></div><div style="grid-column:span 2"><label class="lb">Isi *</label><textarea id="md_isi" class="fi" style="min-height:120px"></textarea></div><div><label class="lb">Oleh</label><input id="md_oleh" class="fi" value="Admin RW 011"></div><div style="display:flex;align-items:flex-end"><button class="bs" onclick="svMading()">Simpan</button></div></div></div><div class="sc"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600">Pengumuman</h2><span style="font-size:.65rem;color:#777;font-family:Geist Mono,monospace" id="mdCnt">0</span></div><div id="mdList"><p style="text-align:center;color:#666;padding:1.5rem 0">Kosong</p></div></div></div>';
 h+='<div class="asec" id="as-galeri" style="display:none"><div class="sc" style="margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600;margin-bottom:1.1rem">Tambah Foto</h2><div class="fi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem"><div style="grid-column:span 2"><label class="lb">URL Foto *</label><input id="gl_url" class="fi" placeholder="https://..."></div><div style="grid-column:span 2"><label class="lb">Caption</label><input id="gl_cap" class="fi" placeholder="Deskripsi singkat (opsional)"></div></div><div style="margin-top:1rem"><button class="bs" onclick="svGal()">Tambah Foto</button></div></div><div class="sc"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600">Daftar Foto</h2><span style="font-size:.65rem;color:#777;font-family:Geist Mono,monospace" id="glCnt">0</span></div><div id="glList" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem"><p style="grid-column:span 3;text-align:center;color:#666;padding:1.5rem 0">Kosong</p></div></div></div>';
 h+='<div class="asec" id="as-aduan" style="display:none"><div class="sc"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem"><h2 style="font-size:1.05rem;font-weight:600">Aduan Masuk</h2><div style="display:flex;align-items:center;gap:.5rem"><span id="adSyncBadge" style="font-size:.55rem;padding:.15rem .4rem;border-radius:9999px;background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2);display:none">LIVE</span><span style="font-size:.65rem;color:#777;font-family:Geist Mono,monospace" id="adCnt">0</span></div></div><div id="adList"><p style="text-align:center;color:#666;padding:1.5rem 0">Menghubungkan ke database...</p></div></div></div>';
 
@@ -354,7 +354,7 @@ var adData={
   nama:n,
   rt:r,
   isi:isi,
-  tgl:g('md_tgl')||new Date().toISOString().slice(0,10),
+  tgl:new Date().toISOString().slice(0,10),
   status:'baru',
   timestamp: firebase.firestore.FieldValue.serverTimestamp()
 };
@@ -689,19 +689,19 @@ function svMading(){
   var judul=g('md_judul'),isi=g('md_isi'),oleh=g('md_oleh'),editId=g('md_id');
   if(!judul||!isi){toast('Lengkapi field bertanda *',1);return;}
   if(editId){
-    for(var i=0;i<D_M.length;i++){if(D_M[i].id===editId){D_M[i].judul=judul;D_M[i].isi=isi;D_M[i].oleh=oleh;if(g('md_tgl'))D_M[i].tgl=g('md_tgl');break;}}
+    for(var i=0;i<D_M.length;i++){if(D_M[i].id===editId){D_M[i].judul=judul;D_M[i].isi=isi;D_M[i].oleh=oleh;break;}}
     toast('Pengumuman diupdate');
   }else{
-    D_M.push({id:'md'+Date.now(),judul:judul,isi:isi,oleh:oleh||'Admin RW 011',tgl:g('md_tgl')||new Date().toISOString().slice(0,10)});
+    D_M.push({id:'md'+Date.now(),judul:judul,isi:isi,oleh:oleh||'Admin RW 011',tgl:new Date().toISOString().slice(0,10)});
     toast('Pengumuman ditambahkan');
   }
-  document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';document.getElementById('md_tgl').value='';
+  document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';
   saveToFirebase();renderAdminMd();
 }
 function editMd(idx){
   var m=D_M[idx];if(!m)return;
   var s=function(iid,val){var el=document.getElementById(iid);if(el)el.value=val||'';};
-  s('md_id',m.id);s('md_judul',m.judul);s('md_isi',m.isi);s('md_oleh',m.oleh);s('md_tgl',m.tgl);
+  s('md_id',m.id);s('md_judul',m.judul);s('md_isi',m.isi);s('md_oleh',m.oleh);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function delMd(idx){if(!confirm('Hapus pengumuman ini?'))return;D_M.splice(idx,1);saveToFirebase();renderAdminMd();toast('Dihapus');}
@@ -1394,7 +1394,7 @@ var adData={
   nama:n,
   rt:r,
   isi:isi,
-  tgl:g('md_tgl')||new Date().toISOString().slice(0,10),
+  tgl:new Date().toISOString().slice(0,10),
   status:'baru',
   timestamp: firebase.firestore.FieldValue.serverTimestamp()
 };
@@ -1724,19 +1724,19 @@ function svMading(){
   var judul=g('md_judul'),isi=g('md_isi'),oleh=g('md_oleh'),editId=g('md_id');
   if(!judul||!isi){toast('Lengkapi field bertanda *',1);return;}
   if(editId){
-    for(var i=0;i<D_M.length;i++){if(D_M[i].id===editId){D_M[i].judul=judul;D_M[i].isi=isi;D_M[i].oleh=oleh;if(g('md_tgl'))D_M[i].tgl=g('md_tgl');break;}}
+    for(var i=0;i<D_M.length;i++){if(D_M[i].id===editId){D_M[i].judul=judul;D_M[i].isi=isi;D_M[i].oleh=oleh;break;}}
     toast('Pengumuman diupdate');
   }else{
-    D_M.push({id:'md'+Date.now(),judul:judul,isi:isi,oleh:oleh||'Admin RW 011',tgl:g('md_tgl')||new Date().toISOString().slice(0,10)});
+    D_M.push({id:'md'+Date.now(),judul:judul,isi:isi,oleh:oleh||'Admin RW 011',tgl:new Date().toISOString().slice(0,10)});
     toast('Pengumuman ditambahkan');
   }
-  document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';document.getElementById('md_tgl').value='';
+  document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';
   saveToFirebase();renderAdminMd();
 }
 function editMd(idx){
   var m=D_M[idx];if(!m)return;
   var s=function(iid,val){var el=document.getElementById(iid);if(el)el.value=val||'';};
-  s('md_id',m.id);s('md_judul',m.judul);s('md_isi',m.isi);s('md_oleh',m.oleh);s('md_tgl',m.tgl);
+  s('md_id',m.id);s('md_judul',m.judul);s('md_isi',m.isi);s('md_oleh',m.oleh);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function delMd(idx){if(!confirm('Hapus pengumuman ini?'))return;D_M.splice(idx,1);saveToFirebase();renderAdminMd();toast('Dihapus');}
@@ -2242,11 +2242,11 @@ function svSl(){
 
 function svMading(){
     try{
-                var id=document.getElementById('md_id').value;
-        var obj={id:id||'md_'+Date.now(),judul:document.getElementById('md_judul').value.trim(),isi:document.getElementById('md_isi').value.trim(),oleh:document.getElementById('md_oleh').value.trim(),tgl:document.getElementById('md_tgl').value.trim()||new Date().toISOString().split('T')[0]};
-                if(!obj.judul||!obj.isi){toast('Judul dan Isi wajib diisi',1);return;}
+        var id=document.getElementById('md_id').value;
+        var obj={id:id||'md_'+Date.now(),judul:document.getElementById('md_judul').value.trim(),isi:document.getElementById('md_isi').value.trim(),oleh:document.getElementById('md_oleh').value.trim(),tgl:new Date().toISOString().split('T')[0]};
+        if(!obj.judul||!obj.isi){toast('Judul dan Isi wajib diisi',1);return;}
         if(id){var idx=D_M.findIndex(function(x){return x.id==id;});if(idx>-1)D_M[idx]=obj;}else{D_M.push(obj);}
-        document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';document.getElementById('md_tgl').value='';
+        document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';
         saveAll();renderMdList();toast('Pengumuman disimpan');
     }catch(e){toast('Gagal: '+e.message,1);}
 }
