@@ -2189,7 +2189,6 @@ function toggleMediaField(){
 function saveAll(){
     try{
         var data={s:D_S,k:D_K,sb:D_SB,st:D_ST,a:D_A,t:D_T,f:D_F,mading:D_M,galeri:D_G,slideshow:D_SL};
-        alert('KE FIREBASE: '+JSON.stringify(data.mading.map(function(m){return m.tgl;})));
         localStorage.setItem('rw_data',JSON.stringify(data));
         try{if(typeof db!=='undefined'&&db&&firebase.auth().currentUser){db.collection('majalah').doc('data').set(data,{merge:true});}}catch(e){}
     }catch(e){}
