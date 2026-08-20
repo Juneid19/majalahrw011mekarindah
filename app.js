@@ -688,7 +688,6 @@ function svMading(){
   var g=function(iid){var el=document.getElementById(iid);return el?el.value.trim():'';};
   var judul=g('md_judul'),isi=g('md_isi'),oleh=g('md_oleh'),editId=g('md_id');
   if(!judul||!isi){toast('Lengkapi field bertanda *',1);return;}
-  alert('TGL yang dipilih: ['+g('md_tgl')+']');
   if(editId){
     for(var i=0;i<D_M.length;i++){if(D_M[i].id===editId){D_M[i].judul=judul;D_M[i].isi=isi;D_M[i].oleh=oleh;if(g('md_tgl'))D_M[i].tgl=g('md_tgl');break;}}
     toast('Pengumuman diupdate');
@@ -2244,7 +2243,7 @@ function svSl(){
 function svMading(){
     try{
         var id=document.getElementById('md_id').value;
-        var obj={id:id||'md_'+Date.now(),judul:document.getElementById('md_judul').value.trim(),isi:document.getElementById('md_isi').value.trim(),oleh:document.getElementById('md_oleh').value.trim(),tgl:new Date().toISOString().split('T')[0]};
+        var obj={id:id||'md_'+Date.now(),judul:document.getElementById('md_judul').value.trim(),isi:document.getElementById('md_isi').value.trim(),oleh:document.getElementById('md_oleh').value.trim(),tgl:document.getElementById('md_tgl').value.trim()||new Date().toISOString().split('T')[0]};
         if(!obj.judul||!obj.isi){toast('Judul dan Isi wajib diisi',1);return;}
         if(id){var idx=D_M.findIndex(function(x){return x.id==id;});if(idx>-1)D_M[idx]=obj;}else{D_M.push(obj);}
         document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';document.getElementById('md_tgl').value='';
