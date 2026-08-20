@@ -2242,9 +2242,9 @@ function svSl(){
 
 function svMading(){
     try{
-        alert('MD_TGL=['+document.getElementById('md_tgl').value+']');
-        var id=document.getElementById('md_id').value;
+                var id=document.getElementById('md_id').value;
         var obj={id:id||'md_'+Date.now(),judul:document.getElementById('md_judul').value.trim(),isi:document.getElementById('md_isi').value.trim(),oleh:document.getElementById('md_oleh').value.trim(),tgl:document.getElementById('md_tgl').value.trim()||new Date().toISOString().split('T')[0]};
+        alert('OBJ='+JSON.stringify(obj));
         if(!obj.judul||!obj.isi){toast('Judul dan Isi wajib diisi',1);return;}
         if(id){var idx=D_M.findIndex(function(x){return x.id==id;});if(idx>-1)D_M[idx]=obj;}else{D_M.push(obj);}
         document.getElementById('md_judul').value='';document.getElementById('md_isi').value='';document.getElementById('md_id').value='';document.getElementById('md_tgl').value='';
