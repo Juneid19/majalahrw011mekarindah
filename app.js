@@ -2069,7 +2069,7 @@ function loadFromFirebase(){
             if(d.a)D_A=d.a;
             if(d.t)Object.keys(d.t).forEach(function(k){D_T[k]=d.t[k];});
             if(d.f)Object.keys(d.f).forEach(function(k){D_F[k]=d.f[k];});
-            if(d.mading){D_M=d.mading;if(D_M.length)alert('FIREBASE TGL: '+D_M[D_M.length-1].tgl);}
+            if(d.mading)D_M=d.mading;
             if(d.galeri)D_G=d.galeri;
             if(d.slideshow)D_SL=d.slideshow;
             render();
@@ -2189,6 +2189,7 @@ function toggleMediaField(){
 function saveAll(){
     try{
         var data={s:D_S,k:D_K,sb:D_SB,st:D_ST,a:D_A,t:D_T,f:D_F,mading:D_M,galeri:D_G,slideshow:D_SL};
+        alert('KE FIREBASE: '+JSON.stringify(data.mading.map(function(m){return m.tgl;})));
         localStorage.setItem('rw_data',JSON.stringify(data));
         try{if(typeof db!=='undefined'&&db&&firebase.auth().currentUser){db.collection('majalah').doc('data').set(data,{merge:true});}}catch(e){}
     }catch(e){}
