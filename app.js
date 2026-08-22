@@ -2538,18 +2538,19 @@ function kirimAduan(){
         
         if(!rt||!isi){toast('Form aduan tidak ditemukan',1);return;}
         
+        var namaEl=document.getElementById('ad_nama');var namaVal=namaEl?namaEl.value.trim():'';
         var rtVal=rt.value.trim(),isiVal=isi.value.trim();
         if(!rtVal||!isiVal){toast('Asal RT dan Isi Aduan wajib diisi',1);return;}
         
         var submitBtn=document.querySelector('#sec-8 .bs');
         if(submitBtn){submitBtn.disabled=true;submitBtn.innerHTML='<span class="spinner"></span> Mengirim...';}
         
-        var obj={rt:rtVal,pesan:isiVal,status:'baru',tgl:new Date().toLocaleDateString('id-ID'),timestamp:firebase.firestore.FieldValue.serverTimestamp()};
+        var obj={nama:namaVal,rt:rtVal,pesan:isiVal,status:'baru',tgl:new Date().toLocaleDateString('id-ID'),timestamp:firebase.firestore.FieldValue.serverTimestamp()};
         
         if(typeof db!=='undefined'&&db){
             db.collection('aduan').add(obj).then(function(){
                 toast('Aduan berhasil dikirim');
-                rt.value='';isi.value='';
+                rt.value='';isi.value='';if(namaEl)namaEl.value='';
                 if(statusSpan){statusSpan.style.display='inline';setTimeout(function(){statusSpan.style.display='none';},3000);}
                 if(submitBtn){submitBtn.disabled=false;submitBtn.innerHTML='Kirim Aduan';}
             }).catch(function(err){
