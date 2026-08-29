@@ -33,7 +33,7 @@ function bindUI(){var clB=document.getElementById('nClose');if(clB)clB.onclick=c
 function isAdminPage(){var els=document.querySelectorAll('button');for(var i=0;i<els.length;i++){if(els[i].offsetParent===null)continue;var t=(els[i].textContent||'').trim();if(t.indexOf('Kelola ')>=0)return true;}return false;}
 function showFab(){if(document.getElementById('fabNotif'))return;var f=document.createElement('div');f.id='fabNotif';f.title='Notifikasi';f.style.cssText='position:fixed;bottom:85px;right:14px;width:50px;height:50px;background:linear-gradient(135deg,#229ED9,#1a8cd8);color:#fff;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(34,158,217,0.45);z-index:9998;user-select:none;-webkit-tap-highlight-color:transparent';f.textContent='🔔';f.onclick=openPanel;document.body.appendChild(f);}
 function hideFab(){var f=document.getElementById('fabNotif');if(f)f.style.display='none';}
-function checkFab(){var f=document.getElementById('fabNotif');if(!f)return;if(!_logged){f.style.display='none';return;}f.style.display=isAdminPage()?'flex':'none';}
+function checkFab(){var f=document.getElementById("fabNotif");if(!f)return;if(!_logged){f.style.display="none";return;}f.style.display="flex";}
 function init(){configReady=loadConfig();startListener();if(typeof firebase!=='undefined'&&firebase.auth()){firebase.auth().onAuthStateChanged(function(u){_logged=!!u;if(u){showFab();configReady.then(function(){if(!isAdm()){hideFab();}});}else{hideFab();}});}setInterval(checkFab,1000);if(_logged)showFab();}
 waitDb(init);
 })();
