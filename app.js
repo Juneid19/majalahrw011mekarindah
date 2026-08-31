@@ -2444,8 +2444,8 @@ function toggleTheme() {
 var _curCat='';
 function renderActGrid(cat){
     var g=document.getElementById('actGrid');if(!g)return;
-    var h='',data=D_A;
-    if(cat)data=data.filter(function(a){return a.cat===cat;});
+    var h='',data=Array.isArray(cat)?cat:D_A;
+    if(typeof cat==='string'&&cat)data=data.filter(function(a){return a.cat===cat;});
     data.sort(function(a,b){return a.date>b.date?-1:1;});
     if(!data.length){g.innerHTML='<div style="grid-column:span 2;text-align:center;padding:3rem 1rem;color:#555"><p>Belum ada kegiatan</p></div>';return;}
     for(var i=0;i<data.length;i++){
