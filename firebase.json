@@ -12,19 +12,6 @@
         "destination": "/index.html"
       }
     ],
-    "headers": [
-      {
-        "source": "/notif.js",
-        "headers": {
-          "Cache-Control": "no-cache,no-store,must-revalidate"
-        }
-      },
-      {
-        "source": "/notif.js",
-        "headers": {
-          "Cache-Control": "no-cache,no-store,must-revalidate"
-        }
-      }
-    ]
+    "site": "majalah-rw011"
   }
 }
