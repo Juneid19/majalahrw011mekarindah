@@ -1,0 +1,5 @@
+test-*.html
+firebase-debug.log
+CATATAN_PROJECT.txt
+.git
+**/*.py
