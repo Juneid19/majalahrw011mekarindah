@@ -1,5 +1,7 @@
-test-*.html
+**/*.mp4
+**/*.bak
 firebase-debug.log
 CATATAN_PROJECT.txt
+test-*.html
 .git
 **/*.py
