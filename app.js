@@ -2354,7 +2354,7 @@ function renderMdList(){
         c.innerHTML=h;
     }catch(e){}
 }
-function editMd(id){try{var m=D_M.find(function(x){return x.id==id;});if(!m)return;document.getElementById('md_id').value=m.id;document.getElementById('md_judul').value=m.judul;document.getElementById('md_isi').value=m.isi;document.getElementById('md_oleh').value=m.oleh;}catch(e){}}
+function editMd(id){try{var m=D_M.find(function(x){return x.id==id;});if(!m)return;document.getElementById('md_id').value=m.id;document.getElementById('md_judul').value=m.judul;document.getElementById('md_isi').value=m.isi;document.getElementById('md_oleh').value=m.oleh;var tglI=document.getElementById('md_tgl');if(tglI)tglI.value=m.tgl||'';}catch(e){}}
 function delMd(id){try{D_M=D_M.filter(function(x){return x.id!==id;});saveAll();renderMdList();toast('Pengumuman dihapus');}catch(e){}}
 
 function renderGlList(){
