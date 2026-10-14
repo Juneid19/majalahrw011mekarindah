@@ -5,9 +5,25 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
-      "test-*.html",
+      "pos.mp4",
+      "resmitong.mp4",
+      "indonesia.mp4",
+      "tanahairku.mp4",
+      "balonn.mp4",
+      "app.js.bak",
+      "index.html.bak",
       "firebase-debug.log",
-      "CATATAN_PROJECT.txt"
+      "CATATAN_PROJECT.txt",
+      "test-*.html",
+      "firebase-app.js",
+      "firebase-data.js",
+      "firebase-enhance.js",
+      "firebase-index.html",
+      "index-firebase.html",
+      "flip-temp.txt",
+      "install-peraturan.sh",
+      "icon.png",
+      ".firebaseignore"
     ],
     "rewrites": [
       {

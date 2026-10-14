@@ -1,4 +1,4 @@
-var CACHE='rw-v2';
+var CACHE='rw-v3';
 var PRECACHE=['/'];
 
 self.addEventListener('install',function(e){

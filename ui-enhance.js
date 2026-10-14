@@ -118,15 +118,24 @@ function initGaleriCaption(){
         if(!track || !captionWrap) return;
         var transform = track.style.transform || '';
         var match = transform.match(/translateX\(-?(\d+)%\)/);
+        var index = 0;
         if(match){
             var percent = parseInt(match[1]);
-            var index = Math.round(percent / 100);
-            var captions = track.querySelectorAll('.slide-item>div[style*="linear-gradient"]');
-            captionWrap.textContent = (captions[index] && captions[index].textContent) ? captions[index].textContent.trim() : '';
-        } else {
-            var caps = track.querySelectorAll('.slide-item>div[style*="linear-gradient"]');
-            captionWrap.textContent = (caps[0] && caps[0].textContent) ? caps[0].textContent.trim() : '';
+            index = Math.round(percent / 100);
         }
+        // Baca caption dari data D_G (reliable, bebas dari DOM off-by-one)
+        var data = (typeof D_G !== 'undefined') ? D_G : null;
+        if(data && data[index] && data[index].caption){
+            captionWrap.textContent = data[index].caption.trim();
+            return;
+        }
+        // Fallback: filter DOM hanya yang punya teks (skip overlay)
+        var allDivs = track.querySelectorAll('.slide-item>div[style*="linear-gradient"]');
+        var captions = [];
+        for(var i = 0; i < allDivs.length; i++){
+            if(allDivs[i].textContent.trim()) captions.push(allDivs[i]);
+        }
+        captionWrap.textContent = (captions[index] && captions[index].textContent) ? captions[index].textContent.trim() : '';
     }
     
     updateCaption();
